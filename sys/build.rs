@@ -163,6 +163,8 @@ impl Builder {
             .allowlist_function("oboe::AudioStreamShared_.*")
             .allowlist_function("oboe::AudioStreamCallbackWrapper_.+")
             .allowlist_function("oboe::getSdkVersion")
+            .allowlist_function("oboe::OboeExt_isMMap.*")
+            .allowlist_function("oboe::OboeExt_setMMapEnabled")
             .blocklist_type("std::.*_ptr.*")
             .blocklist_type("oboe::ManagedStream")
             .blocklist_function("oboe::AudioStreamBuilder_openStream")
@@ -272,6 +274,7 @@ impl Builder {
             "AudioStreamWrapper.cpp",
             "AudioStreamBuilderWrapper.cpp",
             "AudioStreamCallbackWrapper.cpp",
+            "OboeExtMMap.cpp",
         ];
 
         if env::var(format!("CXX_{}", self.target)).is_err() {

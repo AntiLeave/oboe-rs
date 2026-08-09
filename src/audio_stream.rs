@@ -131,6 +131,14 @@ pub trait AudioStreamSafe: AudioStreamBase {
     }
 
     /**
+     * Check if this stream is using the MMAP (memory-mapped) data path.
+     *
+     * MMAP provides lower latency by bypassing the AudioFlinger mixer.
+     * Returns false if MMAP is not supported or not used for this stream.
+     */
+    fn is_mmap_used(&self) -> bool;
+
+    /**
      * Returns the number of frames of data currently in the buffer
      */
     fn get_available_frames(&mut self) -> Result<i32>;
@@ -396,6 +404,10 @@ impl<T: RawAudioStream + RawAudioStreamBase> AudioStreamSafe for T {
     fn get_audio_api(&self) -> AudioApi {
         FromPrimitive::from_i32(unsafe { ffi::oboe_AudioStream_getAudioApi(self._raw_stream()) })
             .unwrap()
+    }
+
+    fn is_mmap_used(&self) -> bool {
+        unsafe { ffi::oboe_OboeExt_isMMapUsed(self._raw_stream() as *const _ as *mut _) }
     }
 
     fn get_available_frames(&mut self) -> Result<i32> {

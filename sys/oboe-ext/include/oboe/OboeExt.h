@@ -97,6 +97,12 @@ namespace oboe {
                                              int64_t timeoutNanoseconds);
 
   AudioStreamBase* AudioStream_getBase(AudioStream *oboeStream);
+
+  // MMAP support
+  bool OboeExt_isMMapSupported();
+  bool OboeExt_isMMapEnabled();
+  int32_t OboeExt_setMMapEnabled(bool enabled);
+  bool OboeExt_isMMapUsed(AudioStream *oboeStream);
 }
 
 #endif
