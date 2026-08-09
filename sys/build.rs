@@ -268,6 +268,7 @@ impl Builder {
             "common/StabilizedCallback.cpp",
             "common/Trace.cpp",
             "common/Version.cpp",
+            "common/OboeExtensions.cpp",
         ];
 
         let ext_files = &[
