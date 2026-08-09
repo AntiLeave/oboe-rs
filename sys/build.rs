@@ -331,14 +331,15 @@ impl Builder {
     }
 }
 
-fn android_target(target_arch: impl AsRef<str>) -> &'static str {
-    match target_arch.as_ref() {
+fn android_target(target_arch: impl AsRef<str>) -> String {
+    let target = match target_arch.as_ref() {
         "arm" => "armv7a-linux-androideabi",
         "aarch64" => "aarch64-linux-android",
         "x86" => "i686-linux-android",
         "x86_64" => "x86_64-linux-android",
         arch => panic!("Unsupported architecture {}", arch),
-    }
+    };
+    format!("{}21", target)
 }
 
 fn rustc_target(target_arch: impl AsRef<str>) -> &'static str {
